@@ -1,6 +1,10 @@
 class GithubService
+  extend ServiceHelper
 
-  def self.account_info(uid)
+  def self.account_info
+    response = Faraday.get("https://api.github.com/user?#{keys}")
+    account_info = JSON.parse(response.body, symbolize_names: true)
+    binding.pry
   end
 
   def self.recent_activity(uid)
@@ -12,7 +16,10 @@ class GithubService
   def self.organizations(uid)
   end
 
-  def self.repositories(uid)
+  def self.repositories(current_user)
+    response = connection.get "/users/#{current_user['username']}/repos?#{keys}"
+    repositories = JSON.parse(response.body, symbolize_names: true)
+    binding.pry
   end
 
 end
