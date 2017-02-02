@@ -11,12 +11,18 @@ class GithubService
     parse(response)
   end
 
-  def self.recent_activity(uid)
+  def self.recent_activity(username)
+    response = connection.get "/users/#{username}/events?#{keys}"
+    parse(response)
   end
 
-  def self.following(uid)
+  def self.following(username)
+    response = connection.get "/users/#{username}/following?#{keys}"
+    parse(response)
   end
 
-  def self.organizations(uid)
+  def self.organizations(username)
+    response = connection.get "/users/#{username}/orgs?#{keys}"
+    parse(response)
   end
 end
