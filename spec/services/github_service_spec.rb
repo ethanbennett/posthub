@@ -27,12 +27,29 @@ describe GithubService do
         expect(repositories).to be_an(Array)
         repository = repositories.first
 
-        expect(repositories.first[:owner][:login]).to eq("ethanbennett")
+        expect(repository[:owner][:login]).to eq("ethanbennett")
         expect(repository).to have_key(:id)
         expect(repository).to have_key(:name)
         expect(repository).to have_key(:full_name)
         expect(repository).to have_key(:owner)
         expect(repository).to have_key(:commits_url)
+      end
+    end
+  end
+
+    context ".recent_activity" do
+    it "returns a list of the user's recent activity" do
+      VCR.use_cassette("github_service_recent_activity") do
+        activity = GithubService.recent_activity("ethanbennett")
+        
+        expect(activity).to be_an(Array)
+        most_recent = activity.first
+
+        expect(most_recent).to have_key(:id)
+        expect(most_recent).to have_key(:type)
+        expect(most_recent).to have_key(:actor)
+        expect(most_recent).to have_key(:repo)
+        expect(most_recent).to have_key(:payload)
       end
     end
   end
