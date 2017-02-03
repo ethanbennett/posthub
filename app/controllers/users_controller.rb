@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     @recent_activity = GithubService.recent_activity(@username)
     @following       = GithubService.following(@username)
     @organizations   = GithubService.organizations(@username)
+    binding.pry
   end
 
 private
