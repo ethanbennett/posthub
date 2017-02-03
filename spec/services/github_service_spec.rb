@@ -53,4 +53,24 @@ describe GithubService do
       end
     end
   end
+
+  context ".following" do
+    it "returns a list of people the user follows" do
+      VCR.use_cassette("github_service_following") do
+        following = GithubService.following("ethanbennett")
+        
+        expect(following).to be_an(Array)
+      end
+    end
+  end
+
+  context ".organizations" do
+    it "returns a list of the user's organizations" do
+      VCR.use_cassette("github_service_organizations") do
+        organizations = GithubService.organizations("ethanbennett")
+        
+        expect(organizations).to be_an(Array)
+      end
+    end
+  end
 end
